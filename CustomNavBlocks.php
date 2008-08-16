@@ -26,7 +26,7 @@ function addCustomNavBlocks( $skin, $tpl ) {
 	$CustomNavBlocksRaw = $tpl->translator->translate( 'CustomNavBlocks' );
 	$blocks = explode( "\n", $CustomNavBlocksRaw );
 	$sidebar = array();
-	
+
 	foreach ($blocks as $block) {
 		$tmp = explode( '|', $block );
 
@@ -37,18 +37,16 @@ function addCustomNavBlocks( $skin, $tpl ) {
 		# some shortcuts
 		$definition = $tmp[0];
 		$blockTitle = $tmp[1];
-
+		
 		# first, we need a title object:
 		$title = Title::newFromText( $definition, NS_MEDIAWIKI );
 
 		# return false if a page defined by MediaWiki:CustomNavBlocks doesn't exist:
 		if ( ! $title->exists() )
 			return false;
-
+		
 		# get article and content:
-		$article = new Article( $title );
-		$article->loadContent();
-		$content = $article->getContent();
+		$content = $tpl->translator->translate( "$definition" );
 
 		# parse the mediawiki-syntax into html:
 		$content = $wgParser->preprocess( $content, $title, $parserOptions );
