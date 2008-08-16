@@ -17,8 +17,11 @@ $wgExtensionCredits['other'][] = array (
 );
 
 function addCustomNavBlocks( $skin, $tpl ) {
+	global $wgParser, $wgCustomNavBlocksEnable;
+	if ( ! $wgCustomNavBlocksEnable );
+		return true;
+
 	$parserOptions = new ParserOptions();
-	global $wgParser;
 	
 	$CustomNavBlocksRaw = $tpl->translator->translate( 'CustomNavBlocks' );
 	$blocks = explode( "\n", $CustomNavBlocksRaw );
