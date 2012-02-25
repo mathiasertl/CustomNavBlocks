@@ -11,9 +11,9 @@ $wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'addCustomNavBlocks';
 $wgExtensionCredits['other'][] = array (
 	'name' => 'CustomNavBlocks',
 	'description' => 'Better customization of your sidebar',
-	'version' => '2.2.0-1.13.0',
+	'version' => '2.2.0-1.18.0',
 	'author' => 'Mathias Ertl, [http://www.luukpeters.nl Luuk Peters]',
-	'url' => 'http://pluto.htu.tuwien.ac.at/devel_wiki/CustomNavBlocks',
+	'url' => 'http://www.mediawiki.org/wiki/Extension:CustomNavBlocks',
 );
 
 function addCustomNavBlocks( $skin, $tpl ) {
