@@ -35,11 +35,11 @@ function addCustomNavBlocks($skin, $tpl) {
         $tmp = explode('|', $block);
 
         # silently ignore lines that have more than one '|':
-        if (count( $tmp) > 2 || count( $tmp) < 1) {
+        if (count($tmp) > 2 || count($tmp) < 1) {
             continue;
         }
 
-        if (count( $tmp) == 1 && isset($tpl->data['sidebar'][$block])) {
+        if (count($tmp) == 1 && isset($tpl->data['sidebar'][$block])) {
             # try to find default sidebar item
             $sidebar[$block] = $tpl->data['sidebar'][$block];
         } else {
@@ -49,7 +49,7 @@ function addCustomNavBlocks($skin, $tpl) {
 
             # first, we need a title object:
             $title = Title::newFromText($definition, NS_MEDIAWIKI);
-            if (is_null( $title)) {
+            if (is_null($title)) {
                 continue;
             }
 
