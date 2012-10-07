@@ -4,7 +4,7 @@ if (!defined('MEDIAWIKI')) {
     echo <<<EOT
 INSTRUCTIONS
 EOT;
-    exit( 1 );
+    exit(1);
 }
 
 $wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'addCustomNavBlocks';
@@ -17,28 +17,29 @@ $wgExtensionCredits['other'][] = array (
     'url' => 'http://www.mediawiki.org/wiki/Extension:CustomNavBlocks',
 );
 
-function addCustomNavBlocks( $skin, $tpl ) {
+function addCustomNavBlocks($skin, $tpl) {
     global $wgParser, $wgCustomNavBlocksEnable, $wgUser;
-    if ( ! $wgCustomNavBlocksEnable )
+    if (! $wgCustomNavBlocksEnable)
         return true;
     $skin = $wgUser->getSkin();
 
     $parserOptions = new ParserOptions();
 
-    $CustomNavBlocksRaw = $tpl->translator->translate( 'CustomNavBlocks' );
-    $CustomNavBlocksClean = trim( preg_replace( array('/<!--(.*)-->/s'), array(''), $CustomNavBlocksRaw ) );
-    $blocks = explode( "\n", $CustomNavBlocksClean );
+    $CustomNavBlocksRaw = $tpl->translator->translate('CustomNavBlocks');
+    $CustomNavBlocksClean = trim(preg_replace(
+        array('/<!--(.*)-->/s'), array(''), $CustomNavBlocksRaw));
+    $blocks = explode("\n", $CustomNavBlocksClean);
     $sidebar = array();
 
     foreach ($blocks as $block) {
-        $tmp = explode( '|', $block );
+        $tmp = explode('|', $block);
 
         # silently ignore lines that have more than one '|':
-        if ( count( $tmp ) > 2 || count( $tmp ) < 1 ) {
+        if (count( $tmp) > 2 || count( $tmp) < 1) {
             continue;
         }
 
-        if ( count( $tmp ) == 1 && isset($tpl->data['sidebar'][$block])) {
+        if (count( $tmp) == 1 && isset($tpl->data['sidebar'][$block])) {
             # try to find default sidebar item
             $sidebar[$block] = $tpl->data['sidebar'][$block];
         } else {
@@ -47,14 +48,15 @@ function addCustomNavBlocks( $skin, $tpl ) {
             $blockTitle = $tmp[1];
 
             # first, we need a title object:
-            $title = Title::newFromText( $definition, NS_MEDIAWIKI );
-            if ( is_null( $title ) ) {
+            $title = Title::newFromText($definition, NS_MEDIAWIKI);
+            if (is_null( $title)) {
                 continue;
             }
 
-            # return false if a page defined by MediaWiki:CustomNavBlocks doesn't exist:
-            if ( ! $title->exists() ) {
-                if ( $title->quickUserCan('edit')) {
+            # return false if a page defined by MediaWiki:CustomNavBlocks
+            # doesn't exist:
+            if (! $title->exists()) {
+                if ($title->quickUserCan('edit')) {
                     /* make edit link */
                     $html = $skin->link(
                         $title,
@@ -67,11 +69,13 @@ function addCustomNavBlocks( $skin, $tpl ) {
                 }
             } else {
                 # get article and content:
-                $content = $tpl->translator->translate( "$definition" );
+                $content = $tpl->translator->translate("$definition");
 
                 # parse the mediawiki-syntax into html:
-                $content = $wgParser->preprocess( $content, $title, $parserOptions );
-                $parserOutput = $wgParser->parse( $content, $title, $parserOptions );
+                $content = $wgParser->preprocess(
+                    $content, $title, $parserOptions);
+                $parserOutput = $wgParser->parse(
+                    $content, $title, $parserOptions);
                 $html = $parserOutput->getText();
             }
 
@@ -81,7 +85,7 @@ function addCustomNavBlocks( $skin, $tpl ) {
     }
 
     # set sidebar to new thing:
-    $tpl->set( 'sidebar', $sidebar );
+    $tpl->set('sidebar', $sidebar);
     return true;
 }
 
