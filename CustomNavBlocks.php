@@ -18,10 +18,10 @@ $wgExtensionCredits['other'][] = array (
 );
 
 function addCustomNavBlocks($skin, $tpl) {
-    global $wgParser, $wgCustomNavBlocksEnable, $wgUser;
+    global $wgParser, $wgCustomNavBlocksEnable, $wgOut;
     if (! $wgCustomNavBlocksEnable)
         return true;
-    $skin = $wgUser->getSkin();
+    $skin = $wgOut->getSkin();
 
     $parserOptions = new ParserOptions();
 
