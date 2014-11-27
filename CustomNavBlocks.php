@@ -18,10 +18,9 @@ $wgExtensionCredits['other'][] = array (
 );
 
 function addCustomNavBlocks($skin, $tpl) {
-    global $wgParser, $wgCustomNavBlocksEnable, $wgOut;
+    global $wgParser, $wgCustomNavBlocksEnable;
     if (! $wgCustomNavBlocksEnable)
         return true;
-    $skin = $wgOut->getSkin();
 
     $parserOptions = new ParserOptions();
 
@@ -58,12 +57,9 @@ function addCustomNavBlocks($skin, $tpl) {
             if (! $title->exists()) {
                 if ($title->quickUserCan('edit')) {
                     /* make edit link */
-                    $html = $skin->link(
-                        $title,
-                        $title->getPrefixedText(),
-                        array(),
-                        array('action' => 'edit')
-                    );
+                    $html = Linker::link(
+                        $title, $title->getPrefixedText(), array(),
+                        array('action' => 'edit'));
                 } else {
                     $html = '';
                 }
