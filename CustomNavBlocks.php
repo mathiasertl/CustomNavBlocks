@@ -12,7 +12,7 @@ $wgExtensionCredits['other'][] = array (
     'path' => __FILE__,
     'name' => 'CustomNavBlocks',
     'description' => 'Better customization of your sidebar',
-    'version' => '2.2.1',
+    'version' => '2.2.2',
     'author' => 'Mathias Ertl, [http://www.luukpeters.nl Luuk Peters]',
     'url' => 'http://www.mediawiki.org/wiki/Extension:CustomNavBlocks',
 );
@@ -88,5 +88,3 @@ function addCustomNavBlocks($skin, $tpl) {
     $tpl->set('sidebar', $sidebar);
     return true;
 }
-
-?>
