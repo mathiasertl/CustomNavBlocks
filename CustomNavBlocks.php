@@ -7,15 +7,19 @@ EOT;
     exit(1);
 }
 
-$wgHooks['SkinTemplateOutputPageBeforeExec'][] = 'addCustomNavBlocks';
-$wgExtensionCredits['other'][] = array (
-    'path' => __FILE__,
-    'name' => 'CustomNavBlocks',
-    'description' => 'Better customization of your sidebar',
-    'version' => '2.2.2',
-    'author' => 'Mathias Ertl, [http://www.luukpeters.nl Luuk Peters]',
-    'url' => 'http://www.mediawiki.org/wiki/Extension:CustomNavBlocks',
-);
+//self executing anonymous function to prevent global scope assumptions
+call_user_func( function() {
+    
+    $GLOBALS['wgHooks']['SkinTemplateOutputPageBeforeExec'][] = 'addCustomNavBlocks';
+    $GLOBALS['wgExtensionCredits']['other'][] = array (
+        'path' => __FILE__,
+        'name' => 'CustomNavBlocks',
+        'description' => 'Better customization of your sidebar',
+        'version' => '2.2.2',
+        'author' => 'Mathias Ertl, [http://www.luukpeters.nl Luuk Peters]',
+        'url' => 'https://www.mediawiki.org/wiki/Extension:CustomNavBlocks',
+    );
+});
 
 function addCustomNavBlocks($skin, $tpl) {
     global $wgParser, $wgCustomNavBlocksEnable;
