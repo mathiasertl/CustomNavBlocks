@@ -28,7 +28,7 @@ function addCustomNavBlocks($skin, $tpl) {
 
     $parserOptions = new ParserOptions();
 
-    $CustomNavBlocksRaw = $tpl->translator->translate('CustomNavBlocks');
+    $CustomNavBlocksRaw = wfMessage('CustomNavBlocks')->text();
     $CustomNavBlocksClean = trim(preg_replace(
         array('/<!--(.*)-->/s'), array(''), $CustomNavBlocksRaw));
     $blocks = explode("\n", $CustomNavBlocksClean);
@@ -69,9 +69,9 @@ function addCustomNavBlocks($skin, $tpl) {
                 }
             } else {
                 # get article and content:
-                $content = $tpl->translator->translate("$definition");
-
-                # parse the mediawiki-syntax into html:
+                $content = wfMessage("$definition")->text();
+                
+		# parse the mediawiki-syntax into html:
                 $content = $wgParser->preprocess(
                     $content, $title, $parserOptions);
                 $parserOutput = $wgParser->parse(
