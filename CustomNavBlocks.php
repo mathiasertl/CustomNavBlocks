@@ -48,7 +48,7 @@ function addCustomNavBlocks($skin, $tpl) {
         } else {
             # some shortcuts
             $definition = $tmp[0];
-            $blockTitle = $tmp[1];
+            $blockTitle = $tmp[1] ?? "";
 
             # first, we need a title object:
             $title = Title::newFromText($definition, NS_MEDIAWIKI);
